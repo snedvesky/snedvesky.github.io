@@ -35,12 +35,26 @@
 					<ul>
 						<ul>							  
 							<blockquote>
-							  <h1>Search</h1>
+							  <h3>Search by Name</h3>
 							</blockquote>
 							<blockquote>
 								<form id="search_form" action="search_form.html" autocomplete="on">
 								  <!-- puts a search box on the form -->
-								  <input id="search" type="text" name="search" placeholder="Type Ingredient or Recipe Name Here">
+								  <input id="search" type="text" name="search" placeholder="Type Recipe Name Here">
+								  <br><br>
+								  <!-- this will call the POST to the server to search the db with this search string -->
+								  <button type="submit" onclick="<!-- needs js function call here -->">Submit</button>
+								</form>		
+							</blockquote>							  
+						</ul>
+                        <ul>							  
+							<blockquote>
+							  <h3>Search by Ingredient</h3>
+							</blockquote>
+							<blockquote>
+								<form id="search_form" action="search_form.html" autocomplete="on">
+								  <!-- puts a search box on the form -->
+								  <input id="search" type="text" name="search" placeholder="Type Ingredient Name Here">
 								  <br><br>
 								  <!-- this will call the POST to the server to search the db with this search string -->
 								  <button type="submit" onclick="<!-- needs js function call here -->">Submit</button>
