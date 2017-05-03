@@ -38,7 +38,7 @@
 							  <h3>Search by Name</h3>
 							</blockquote>
 							<blockquote>
-								<form id="search_form" action="search_form.html" autocomplete="on" onload="newsApi();">
+								<form id="search_form" action="search_form.html" autocomplete="on" onload="recipeApi();">
 								  <!-- puts a search box on the form -->
 								  <input id="search" type="text" name="search" placeholder="Type Recipe Name Here">
 								  <br><br>
@@ -61,18 +61,31 @@
 								  <button type="submit" onclick="<!-- needs js function call here -->">Submit</button>
 								</form>
 								<script>
-								function newsApi() {
+								function recipeApi() {
 								    var xmlHttp = new XMLHttpRequest();
 								    var apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2NvdHQiLCJ1c2VybmFtZSI6InNuZWR2ZXNreSIsImlhdCI6MTQ5Mzc3MDkwOSwiZXhwIjoxNDk0MDMwMTA5fQ.K23ZJ3AZlfYMSjCIrJfymUEJDdBZVB47kXtEQAeVhOo';
 								    var apiURL = 'http://kelseyrocklin-test.apigee.net/final/recipes';
 								    xmlHttp.onreadystatechange = function() {
 								        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-								            newsApiResponse(xmlHttp.responseText);
+								            recipeApiResponse(xmlHttp.responseText);
 								        }
 								    };
 								    xmlHttp.open("GET", apiURL, true); // true for asynchronous
 								    xmlHttp.send();
 								}
+								function recipeApiResponse(apiData) {
+								    var data = JSON.parse(apiData);
+								    var recipeTitle, rIngredients,rDirection;
+								    for (i = 0; i < 4; i++) {
+								        recipeTitle = data.recipes[i].title;
+								        console.log(recipeTitle);
+								        var cells = document.getElementsByTagName("td");
+								        var cell = cells[i];
+								        cell.innerText += recipeTitle;
+								    }
+								}
+
+								</script>
 							</blockquote>
 						</ul>
 					</div>
@@ -94,90 +107,3 @@
 	</div>
 </body>
 </html>
-
----------------- Is this something we are looking for?????????? -------------------------------
-
-https://github.com/apigee/api-platform-samples/tree/master/sample-proxies/outbound-oauth
-
-
---------------    or     ---------------------------
-
-http://docs.apigee.com/api-services/reference/javascript-object-model#makingjavascriptcalloutswithhttpclient
-
-
---------------    or     ---------------------------
-
-**
- * Retrieve an access token for the Microsoft Translator API
- * http://msdn.microsoft.com/en-us/library/hh454950.aspx
- */
-function getAccessToken() {
-  var bodyObj = {
-    'grant_type': translatorApi.grantType,
-    'scope': translatorApi.scopeUrl,
-    'client_id': translatorApi.clientId,
-    'client_secret': translatorApi.clientSecret
-  };
-
-  var req = new Request(translatorApi.authUrl, 'POST', {'Content-Type':'application/json'}, JSON.stringify(bodyObj));
-  var exchange = httpClient.send(req);
-
-  // Wait for the asynchronous POST request to finish
-  exchange.waitForComplete();
-
-  if (exchange.isSuccess()) {
-    var responseObj = exchange.getResponse().content.asJSON;
-
-    if (responseObj.error) {
-      throw new Error(responseObj.error_description);
-    }
-
-    return responseObj.access_token;
-  } else if (exchange.isError()) {
-    throw new Error(exchange.getError());
-  }
-}
-
-context.setVariable('twitter-translate.apiAccessToken', getAccessToken());
-
-
-
-
-
-
-------------------- followed up by ---------------------------
-
-
-
-
-
-
-function userCheck() {
-  var url = getAppServicesUrl() + '/users/' + username,
-      headers = {
-        Authorization : 'Bearer ' + appServicesAccessToken
-      },
-      req = new Request(url, 'GET', headers),
-      exchange = httpClient.send(req),
-      response, status;
-
-  // Wait for the asynchronous GET request to finish
-  exchange.waitForComplete();
-
-  // get the response object from the exchange
-  response = exchange.getResponse();
-
-  // get the HTTP status code from the response
-  status = response.status;
-
-  if (status == 200) {
-    context.setVariable('userCheck.trace', 'user exists');
-  }
-  else if (status == 404) {
-    context.setVariable('userCheck.trace', 'user does not exist');
-  }
-  else {
-    context.setVariable('userCheck.trace', 'user-inquiry-status:' + status);
-  }
-  return true;
-}
