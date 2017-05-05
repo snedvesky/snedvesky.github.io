@@ -1,35 +1,75 @@
 <html>
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bare Pantry Recipes</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/mobile.css">
+	<script src="js/mobile.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="page">
+		<div id="header">
+			<div>
+				<a href="index.html" class="logo"><img src="images/newlogo.jpg" alt="Bare Pantry" style='height: 100%; width: 100%; object-fit: contain' align="bottom"></a> 	
+				<ul id="navigation">
+					<li class="selected">
+						<a href="index.html">Home</a>
+					</li>
+                    <li>
+						<a href="database_form.html">Database</a>
+					</li>
+					<li>
+						<a href="post_form.html">Post</a>
+					</li>
+					<li>
+						<a href="login_form.html">Login</a>	
+					</li>
+					<li>
+						<a href="about.html">About</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+<div class="table-title">
+<h3>Recipe Entry</h3>
+</div>
+<blockquote>
+	<input type="text" id="rName">Recipe Name</input>
+    <input type="text" id="iName1">Ingredient #1 Name</input>
+    <input type="text" id="iName2">Ingredient #2 Name</input>
+    <input type="text" id="iName3">Ingredient #3 Name</input>
+    <input type="text" id="dRecipe">Directions</input>
+    <button id="submitter">Submit</button>
+    <div id="output"></div>
+                            
+                            
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
-  $(function () {
-      //alert('here1');
-      var request = $.ajax({
-          headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2NvdHQiLCJ1c2VybmFtZSI6InNuZWR2ZXNreSIsImlhdCI6MTQ5Mzc5MTIyNywiZXhwIjoxNDk0MDUwNDI3fQ.UwWkUa_XNRbtR-YbNDrq7DVWxpqhEkASf1qo5THScXY"
-          },
-          crossDomain: true,
-          url: "http://kelseyrocklin-test.apigee.net/final/recipes",
-          type: "GET",
-          dataType: "json"
-      });
+  var didClickIt = false;
+        document.getElementById("submitter").addEventListener("click",function(){
+            // same as onclick, keeps the JS and HTML separate
+            didClickIt = true;
+        });
 
-      request.done(function (msg, textStatus, jqXHR) {
-          alert(jqXHR.getAllResponseHeaders());
-         $('#response').text(JSON.stringify(msg));
-      });
-
-      request.fail(function (jqXHR, textStatus, errorThrown) {
-          alert('Request failed: ' + textStatus + ' ' + errorThrown);
-          alert(jqXHR.responseJSON);
-      });
-
-      //post example
+        $(function(){
+            // this is the closest you get to an infinite loop in JavaScript
+            if( didClickIt ) {
+                didClickIt = false;
+                // document.write causes silly problems, do this instead (or better yet, use a library like jQuery to do this stuff for you)
+                var o=document.getElementById("output"),v=document.getElementById("userInput").value;
+                if(o.textContent!==undefined){
+                    o.textContent=v;
+                }else{
+                    o.innerText=v;
+                }
+				//post example
       var data = {
-          "title" : "buttered toast7",
-          "ingredient" : "breadnbuttq",
-          "ingredient" : "bread",
-          "direction" : "Toast and eat"
+          "title" : 'rName',
+          "ingredient" : 'rName1',
+          "ingredient" : 'rName2',
+		  "ingredient" : 'rName3',
+          "direction" : 'dRecipe'
       }
 
       var request2 = $.ajax({
@@ -47,17 +87,23 @@
           $('#response2').text(JSON.stringify(msg));
       });
 
-      rerequest2.fail(function (jqXHR, textStatus, errorThrown) {
+      request2.fail(function (jqXHR, textStatus, errorThrown) {
           alert('Request failed: ' + textStatus + ' ' + errorThrown);
           alert(jqXHR.responseJSON);
       });
-
-  });
+            }
+			
+        },500);
+  
+  
 </script>
-</head>
-<body>
-<h3>example</h3>
+                            
+                            
+                            
+<!--
 <div id="response">y</div>
 <div id="response2">z</div>
+-->
+
 </body>
 </html>

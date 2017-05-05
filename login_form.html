@@ -13,38 +13,41 @@
 	<div id="page">
 		<div id="header">
 			<div>
-				<a href="home.html" class="logo"><img src="images/newlogo.jpg" alt="Bare Pantry" style='height: 100%; width: 100%; object-fit: contain' align="bottom"></a>
+				<a href="home.html" class="logo"><img src="images/newlogo.jpg" alt="Bare Pantry" style='height: 100%; width: 100%; object-fit: contain' align="bottom"></a> 	
 				<ul id="navigation">
 					<li>
 						<a href="index.html">Home</a>
+					</li>
+                    <li>
+						<a href="database_form.html">Database</a>
 					</li>
 					<li>
 						<a href="search_form.html">Search</a>
 					</li>
 					<li class="selected">
-						<a href="login_form.html">Login</a>
+						<a href="login_form.html">Login</a>	
 					</li>
 					<li>
 						<a href="about.html">About</a>
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div>		
 		<div id="body">
-			<div class="header">
+			<div class="header">			
 					<div class="article">
 						<ul>
-							<ul>
+							<ul>							  
 								<blockquote>
 								  <h1>Login</h1>
 								</blockquote>
-								<blockquote>
+								<blockquote>			
 								 <form action="/login_form.html" >
 								  <div class="container">
 									<label><b>Username</b></label>
 									<input type="text" placeholder="Enter Username..." id="username" name="username" required onchange="showValues()">
 									<label><b>Password</b></label>
-									<input type="password" placeholder="Enter Password..." id="psw" required>
+									<input type="password" placeholder="Enter Password..." id="psw" required> 
 									<button type="submit">
 									Login
 									</button>
@@ -56,7 +59,7 @@
 										<span class="psw"><a href="#"> Forgot password? </a></span>
 									</ul>
 								</form>
-								<p><tt id="results"></tt></p>
+								<p><tt id="results"></tt></p> 
 								<script>
 								  function showValues() {
 									var str = $( "form" ).serialize();
@@ -65,27 +68,13 @@
 								  $( "input[type='text'], input[type='text']" ).on( "change", showValues );
 								  showValues();
 								</script>
-								<script>
-								function newsApi() {
-								    var xmlHttp = new XMLHttpRequest();
-								    var apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2NvdHQiLCJ1c2VybmFtZSI6InNuZWR2ZXNreSIsImlhdCI6MTQ5Mzc3MDkwOSwiZXhwIjoxNDk0MDMwMTA5fQ.K23ZJ3AZlfYMSjCIrJfymUEJDdBZVB47kXtEQAeVhOo';
-								    var apiURL = 'http://kelseyrocklin-test.apigee.net/final/recipes';
-								    xmlHttp.onreadystatechange = function() {
-								        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-								            newsApiResponse(xmlHttp.responseText);
-								        }
-								    };
-								    xmlHttp.open("GET", apiURL, true); // true for asynchronous
-								    xmlHttp.send();
-								}
-
-							</blockquote>
-
+							</blockquote>	
+								
 						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>				
 		<div id="footer">
 			<div class="connect">
 				<div>
