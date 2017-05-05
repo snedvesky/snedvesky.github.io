@@ -21,7 +21,7 @@
       });
 
       request.done(function (msg, textStatus, jqXHR) {
-          alert(jqXHR.getAllResponseHeaders());
+          //alert(jqXHR.getAllResponseHeaders());
          $('#response').text(JSON.stringify(msg));
 		 responseThing(JSON.stringify(msg));
       });
@@ -33,34 +33,7 @@
           alert(jqXHR.responseJSON);
       });
 
-      //post example
-      var data = {
-          "title" : "buttered toast7",
-          "ingredient" : "breadnbuttq",
-          "ingredient" : "bread",
-          "direction" : "Toast and eat"
-      }
-
-      var request2 = $.ajax({
-          headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2NvdHQiLCJ1c2VybmFtZSI6InNuZWR2ZXNreSIsImlhdCI6MTQ5Mzc5MTIyNywiZXhwIjoxNDk0MDUwNDI3fQ.UwWkUa_XNRbtR-YbNDrq7DVWxpqhEkASf1qo5THScXY"
-          },
-          crossDomain: true,
-          url: "http://kelseyrocklin-test.apigee.net/final/recipes",
-          type: "POST",
-          data: data
-      });
-
-      request2.done(function (msg, textStatus, jqXHR) {
-          alert(jqXHR.getAllResponseHeaders());
-          $('#response2').text(JSON.stringify(msg));
-      });
-
-      request2.fail(function (jqXHR, textStatus, errorThrown) {
-          alert('Request failed: ' + textStatus + ' ' + errorThrown);
-          alert(jqXHR.responseJSON);
-      });
-
+      
   });
   
   function responseThing(recipeData) {
@@ -138,9 +111,9 @@
 					<li>
 						<a href="post_form.html">Post</a>
 					</li>
-					<li>
+					<!--<li>
 						<a href="login_form.html">Login</a>	
-					</li>
+					</li>-->
 					<li>
 						<a href="about.html">About</a>
 					</li>

@@ -6,70 +6,17 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="css/mobile.css">
 	<script src="js/mobile.js" type="text/javascript"></script>
-</head>
-<body>
-<div id="page">
-		<div id="header">
-			<div>
-				<a href="index.html" class="logo"><img src="images/newlogo.jpg" alt="Bare Pantry" style='height: 100%; width: 100%; object-fit: contain' align="bottom"></a> 	
-				<ul id="navigation">
-					<li class="selected">
-						<a href="index.html">Home</a>
-					</li>
-                    <li>
-						<a href="database_form.html">Database</a>
-					</li>
-					<li>
-						<a href="post_form.html">Post</a>
-					</li>
-					<li>
-						<a href="login_form.html">Login</a>	
-					</li>
-					<li>
-						<a href="about.html">About</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-<div class="table-title">
-<h3>Recipe Entry</h3>
-</div>
-<blockquote>
-	<input type="text" id="rName">Recipe Name</input>
-    <input type="text" id="iName1">Ingredient #1 Name</input>
-    <input type="text" id="iName2">Ingredient #2 Name</input>
-    <input type="text" id="iName3">Ingredient #3 Name</input>
-    <input type="text" id="dRecipe">Directions</input>
-    <button id="submitter">Submit</button>
-    <div id="output"></div>
-                            
-                            
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
-  var didClickIt = false;
-        document.getElementById("submitter").addEventListener("click",function(){
-            // same as onclick, keeps the JS and HTML separate
-            didClickIt = true;
-        });
+  $(function () {
 
-        $(function(){
-            // this is the closest you get to an infinite loop in JavaScript
-            if( didClickIt ) {
-                didClickIt = false;
-                // document.write causes silly problems, do this instead (or better yet, use a library like jQuery to do this stuff for you)
-                var o=document.getElementById("output"),v=document.getElementById("userInput").value;
-                if(o.textContent!==undefined){
-                    o.textContent=v;
-                }else{
-                    o.innerText=v;
-                }
-				//post example
+      //post example
       var data = {
-          "title" : 'rName',
-          "ingredient" : 'rName1',
-          "ingredient" : 'rName2',
-		  "ingredient" : 'rName3',
-          "direction" : 'dRecipe'
+          "title" : userInput1,
+          "ingredient" : userInput2,
+          "ingredient" : userInput3,
+		  "ingredient" : userInput4,
+          "direction" : userInput5
       }
 
       var request2 = $.ajax({
@@ -83,7 +30,7 @@
       });
 
       request2.done(function (msg, textStatus, jqXHR) {
-          alert(jqXHR.getAllResponseHeaders());
+          //alert(jqXHR.getAllResponseHeaders());
           $('#response2').text(JSON.stringify(msg));
       });
 
@@ -91,19 +38,94 @@
           alert('Request failed: ' + textStatus + ' ' + errorThrown);
           alert(jqXHR.responseJSON);
       });
-            }
+
+  });
+  function test(){
+    		var userInput1 = document.getElementById("rName").value;
+			var userInput2 = document.getElementById("iName1").value
+			var userInput3 = document.getElementById("iName2").value
+			var userInput4 = document.getElementById("iName3").value
+			var userInput5 = document.getElementById("dRecipe").value
+    		document.getElementById("demo").innerHTML = userInput1;
 			
-        },500);
-  
-  
+			
+			var data = {
+          "title" : userInput1,
+          "ingredient" : userInput2,
+          "ingredient" : userInput3,
+		  "ingredient" : userInput4,
+          "direction" : userInput5
+      }
+
+      var request2 = $.ajax({
+          headers: {
+              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2NvdHQiLCJ1c2VybmFtZSI6InNuZWR2ZXNreSIsImlhdCI6MTQ5Mzc5MTIyNywiZXhwIjoxNDk0MDUwNDI3fQ.UwWkUa_XNRbtR-YbNDrq7DVWxpqhEkASf1qo5THScXY"
+          },
+          crossDomain: true,
+          url: "http://kelseyrocklin-test.apigee.net/final/recipes",
+          type: "POST",
+          data: data
+      });
+
+      request2.done(function (msg, textStatus, jqXHR) {
+          //alert(jqXHR.getAllResponseHeaders());
+          $('#response2').text(JSON.stringify(msg));
+      });
+
+      request2.fail(function (jqXHR, textStatus, errorThrown) {
+          alert('Request failed: ' + textStatus + ' ' + errorThrown);
+          alert(jqXHR.responseJSON);
+      });
+		}
 </script>
+</head>
+
+<body>
+<div id="page">
+		<div id="header">
+			<div>
+				<a href="index.html" class="logo"><img src="images/newlogo.jpg" alt="Bare Pantry" style='height: 100%; width: 100%; object-fit: contain' align="bottom"></a> 	
+				<ul id="navigation">
+					<li>
+						<a href="index.html">Home</a>
+					</li>
+                    <li>
+						<a href="database_form.html">Database</a>
+					</li>
+					<li class="selected">
+						<a href="post_form.html">Post</a>
+					</li>
+					<!--<li>
+						<a href="login_form.html">Login</a>	
+					</li>-->
+					<li>
+						<a href="about.html">About</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+<div class="table-title">
+<h3>Recipe Entry</h3>
+</div>
+<blockquote>
+
+	Recipe Name : <input type="text" id="rName"></input>
+    <br>
+    Ingredient #1 Name : <input type="text" id="iName1"></input>
+    <br>
+    Ingredient #1 Name : <input type="text" id="iName2"></input>
+    <br>
+    Ingredient #1 Name : <input type="text" id="iName3"></input>
+    <br>
+    Directions : <input type="text" id="dRecipe"></input>
+    <br>
+    <button onclick="test()">Submit</button>
+    
+    
+    
+    <p id="demo"></p>
                             
-                            
-                            
-<!--
-<div id="response">y</div>
-<div id="response2">z</div>
--->
+   
 
 </body>
 </html>
